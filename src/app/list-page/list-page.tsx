@@ -2,6 +2,7 @@ import React from "react";
 import {AppContainer} from "../+common-ui";
 import {PostBoard} from "../posts";
 import {PostItem} from "../+requests";
+import {useListPageCssSizeProps} from "./use-list-page-css-size-props";
 
 interface Props {
     list: PostItem[]
@@ -14,16 +15,15 @@ export function ListPage({
     isListLoading,
     onScrollToEnd,
 }: Props) {
+    const { cssProps: sizeCssProps } = useListPageCssSizeProps()
+
     const containerProps: React.CSSProperties = {
         marginTop: '16px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
         gap: '24px',
-        width: '50vw',
-        minWidth: '400px',
-        maxWidth: '1200px',
-        height: '100vh',
+        ...sizeCssProps,
     }
 
     return (
