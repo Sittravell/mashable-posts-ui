@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import './App.css';
-import {ErrorPage} from "./error-page/error-page";
-import {LoadingPage} from "./loading-page/loading-page";
-import {ListPage} from "./list-page/list-page";
+import {ErrorPage} from "./error-page";
+import {LoadingPage} from "./loading-page";
+import {ListPage} from "./list-page";
 import {usePostsRetriever} from "./posts/use-posts-retriever";
 
 export function App() {
