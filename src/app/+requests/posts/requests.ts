@@ -8,7 +8,9 @@ export function getList(request?: PostListRequest, signal?: GenericAbortSignal) 
         {
             params: {
                 page: request?.page,
-                itemsPerPage: request?.itemsPerPage,
+                items_per_page: request?.items_per_page,
+                start_date: request?.start_date,
+                end_date: request?.end_date,
             },
             signal
         }

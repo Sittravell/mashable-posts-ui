@@ -1,13 +1,16 @@
 import {useCallback, useEffect, useState} from "react";
 import {CanceledError, GenericAbortSignal} from "axios";
 import {Post, PostItem, PostListResponseModel} from "../+requests";
+import moment from "moment/moment";
 
 interface Props {
     page: number;
+    startDate: string;
 }
 
 export function usePostsRetriever({
-    page
+    page,
+    startDate
 }: Props) {
     const [list, setList] = useState<PostItem[]>([])
     const [isListError, setIsListError] = useState(false)
@@ -15,15 +18,25 @@ export function usePostsRetriever({
     const [isInitialized, setIsInitialized] = useState(false)
     const [isLastPage, setIsLastPage] = useState(false)
 
-    const getList = useCallback(async (abortSignal: GenericAbortSignal) => {
+    const getList = useCallback(async (abortSignal?: GenericAbortSignal) => {
         if (isLastPage) {
             return;
         }
 
         setIsListLoading(true)
         setIsListError(false)
+
         try {
-            const res: PostListResponseModel = await Post.getList({page, itemsPerPage: 35}, abortSignal)
+            const res: PostListResponseModel = await Post.getList(
+                {
+                    page,
+                    items_per_page: 35,
+                    end_date: moment().toISOString(),
+                    start_date: startDate,
+                },
+                abortSignal
+            )
+
             const newList = res.data.data
 
             if (newList.length === 0) {
@@ -40,7 +53,7 @@ export function usePostsRetriever({
             setIsInitialized(true)
         }
 
-    }, [isLastPage, page]);
+    }, [isLastPage, page, startDate]);
 
     useEffect(() => {
         const ac = new AbortController()

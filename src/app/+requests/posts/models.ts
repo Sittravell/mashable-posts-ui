@@ -1,4 +1,4 @@
-import {CollectionAxiosModel} from "../+common/models";
+import {CollectionAxiosModel} from "../+common";
 
 export interface PostItem {
     title: string
@@ -10,5 +10,7 @@ export type PostListResponseModel = CollectionAxiosModel<PostItem>
 
 export interface PostListRequest {
     page?: number
-    itemsPerPage?: number
+    items_per_page?: number
+    start_date?: string
+    end_date?: string
 }
