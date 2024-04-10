@@ -1,5 +1,6 @@
 import axios from "axios";
+import ApiUrl from "./api-url";
 
-const client = axios.create({baseURL: 'http://127.0.0.1:8000/'})
+const client = axios.create({baseURL: ApiUrl})
 
 export default client
